@@ -3,7 +3,7 @@ using EwonShop.Model.Models;
 
 namespace EwonShop.Data.Repositories
 {
-    public interface IFooterRepository
+    public interface IFooterRepository : IRepository<Footer>
     {
     }
 

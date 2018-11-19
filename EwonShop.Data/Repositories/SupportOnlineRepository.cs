@@ -3,11 +3,11 @@ using EwonShop.Model.Models;
 
 namespace EwonShop.Data.Repositories
 {
-    public interface ISupportOnlineRepository
+    public interface ISupportOnlineRepository : IRepository<SupportOnline>
     {
     }
 
-    public class SupportOnlineRepository : RepositoryBase<SupportOnline>, IPostRepository
+    public class SupportOnlineRepository : RepositoryBase<SupportOnline>, ISupportOnlineRepository
     {
         public SupportOnlineRepository(IDbFactory iDbFactory) : base(iDbFactory)
         {

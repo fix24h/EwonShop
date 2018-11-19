@@ -3,11 +3,11 @@ using EwonShop.Model.Models;
 
 namespace EwonShop.Data.Repositories
 {
-    public interface ISlideRepository
+    public interface ISlideRepository : IRepository<Slide>
     {
     }
 
-    public class SlideRepository : RepositoryBase<Slide>, IPostRepository
+    public class SlideRepository : RepositoryBase<Slide>, ISlideRepository
     {
         public SlideRepository(IDbFactory iDbFactory) : base(iDbFactory)
         {

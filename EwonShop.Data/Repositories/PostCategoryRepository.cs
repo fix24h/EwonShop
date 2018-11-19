@@ -3,7 +3,7 @@ using EwonShop.Model.Models;
 
 namespace EwonShop.Data.Repositories
 {
-    public interface IPostCategoryRepository
+    public interface IPostCategoryRepository : IRepository<PostCategory>
     {
     }
 

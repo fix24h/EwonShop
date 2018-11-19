@@ -7,7 +7,7 @@ namespace EwonShop.Data.Repositories
     {
     }
 
-    public class VisitorStatisticRepository : RepositoryBase<VisitorStatistic>, IPostRepository
+    public class VisitorStatisticRepository : RepositoryBase<VisitorStatistic>, IVisitorStatisticRepository
     {
         public VisitorStatisticRepository(IDbFactory iDbFactory) : base(iDbFactory)
         {

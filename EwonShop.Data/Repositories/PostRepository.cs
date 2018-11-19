@@ -8,7 +8,7 @@ using EwonShop.Model.Models;
 
 namespace EwonShop.Data.Repositories
 {
-    public interface IPostRepository
+    public interface IPostRepository : IRepository<Post>
     {
     }
 

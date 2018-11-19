@@ -8,10 +8,11 @@ using EwonShop.Model.Models;
 
 namespace EwonShop.Data.Repositories
 {
-    public interface IMenuRepository{
+    public interface IMenuRepository : IRepository<Menu>
+    {
 
     }
-    public class MenuRepository : RepositoryBase<MenuGroup>, IMenuRepository
+    public class MenuRepository : RepositoryBase<Menu>, IMenuRepository
     {
         public MenuRepository(IDbFactory iDbFactory) : base(iDbFactory)
         {
