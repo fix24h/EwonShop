@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EwonShop.Data.Infrastructure
 {
-    public class UnitOfWork : IunitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly IDbFactory dbFactory;
         private EwonShopDbContext dbContext;

@@ -1,6 +1,6 @@
 ﻿namespace EwonShop.Data.Infrastructure
 {
-    public interface IunitOfWork
+    public interface IUnitOfWork
     {
         void Commit();
     }
