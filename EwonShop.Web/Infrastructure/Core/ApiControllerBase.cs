@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using EwonShop.Model.Models;
+using EwonShop.Service;
+using System;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Controllers;
-using EwonShop.Model.Models;
-using EwonShop.Service;
-using WebGrease.Activities;
 
 namespace EwonShop.Web.Infrastructure.Core
 {
@@ -61,8 +57,8 @@ namespace EwonShop.Web.Infrastructure.Core
         {
             try
             {
-                Error error=new Error();
-                error.CreatedDate=DateTime.Now;
+                Error error = new Error();
+                error.CreatedDate = DateTime.Now;
                 error.Message = ex.Message;
                 error.StackTrace = ex.StackTrace;
                 _errorService.Create(error);
