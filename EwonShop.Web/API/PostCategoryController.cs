@@ -1,6 +1,10 @@
-﻿using EwonShop.Model.Models;
+﻿using AutoMapper;
+using EwonShop.Model.Models;
 using EwonShop.Service;
 using EwonShop.Web.Infrastructure.Core;
+using EwonShop.Web.Infrastructure.Extensions;
+using EwonShop.Web.Models;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -25,13 +29,16 @@ namespace EwonShop.Web.API
             {
                 var listCategory = _postCategoryService.GetAll();
 
+                var listPostCategoryVm = Mapper.Map<List<PostCategoryViewModel>>(listCategory);
+
                 HttpResponseMessage response = request.CreateResponse(HttpStatusCode.OK, listCategory);
 
                 return response;
             });
         }
 
-        public HttpResponseMessage Post(HttpRequestMessage request, PostCategory postCategory)
+        [Route("add")]
+        public HttpResponseMessage Post(HttpRequestMessage request, PostCategoryViewModel postCategoryVm)
         {
             return CreateHttpResponse(request, () =>
             {
@@ -42,16 +49,20 @@ namespace EwonShop.Web.API
                 }
                 else
                 {
-                    var category = _postCategoryService.Add(postCategory);
+                    PostCategory newPostCategory = new PostCategory();
+                    newPostCategory.UpdatePostCategory(postCategoryVm);
+
+                    var category = _postCategoryService.Add(newPostCategory);
                     _postCategoryService.Save();
 
-                    response = request.CreateResponse(HttpStatusCode.Created);
+                    response = request.CreateResponse(HttpStatusCode.Created, category);
                 }
                 return response;
             });
         }
 
-        public HttpResponseMessage Put(HttpRequestMessage request, PostCategory postCategory)
+        [Route("update")]
+        public HttpResponseMessage Put(HttpRequestMessage request, PostCategoryViewModel postCategoryVm)
         {
             return CreateHttpResponse(request, () =>
             {
@@ -62,7 +73,10 @@ namespace EwonShop.Web.API
                 }
                 else
                 {
-                    _postCategoryService.Update(postCategory);
+                    var newPostCategory=_postCategoryService.GetById(postCategoryVm.ID);
+                    newPostCategory.UpdatePostCategory(postCategoryVm);
+
+                    _postCategoryService.Update(newPostCategory);
                     _postCategoryService.Save();
 
                     response = request.CreateResponse(HttpStatusCode.OK);

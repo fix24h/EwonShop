@@ -1,3 +1,7 @@
+using EwonShop.Model.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+
 namespace EwonShop.Data.Migrations
 {
     using System;
@@ -14,10 +18,36 @@ namespace EwonShop.Data.Migrations
 
         protected override void Seed(EwonShop.Data.EwonShopDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            CreateUser(context);
+        }
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data.
+        private void CreateUser(EwonShopDbContext context)
+        {
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new EwonShopDbContext()));
+
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new EwonShopDbContext()));
+
+            var user = new ApplicationUser()
+            {
+                UserName = "huybach",
+                Email = "fix24h.hung@gmail.com",
+                EmailConfirmed = true,
+                BirthDay = DateTime.Now,
+                FullName = "Huy Bách"
+
+            };
+
+            manager.Create(user, "123654$");
+
+            if (!roleManager.Roles.Any())
+            {
+                roleManager.Create(new IdentityRole { Name = "Admin" });
+                roleManager.Create(new IdentityRole { Name = "User" });
+            }
+
+            var adminUser = manager.FindByEmail("fix24h.hung@gmail.com");
+
+            manager.AddToRoles(adminUser.Id, new string[] { "Admin", "User" });
         }
     }
 }

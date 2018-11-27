@@ -1,9 +1,10 @@
 ﻿using System.Data.Entity;
 using EwonShop.Model.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace EwonShop.Data
 {
-    public class EwonShopDbContext : DbContext
+    public class EwonShopDbContext : IdentityDbContext<ApplicationUser>
     {
         public EwonShopDbContext() : base("EwonShopDbContext")
         {
@@ -36,9 +37,17 @@ namespace EwonShop.Data
         public DbSet<ContactDetail> ContactDetails { set; get; }
         public DbSet<Feedback> Feedbacks { set; get; }
 
+        public static EwonShopDbContext Create()
+        {
+            return new EwonShopDbContext();
+        }
+
         protected override void OnModelCreating(DbModelBuilder builder)
         {
-
+            builder.Entity<IdentityUserRole>().HasKey(i => new { i.UserId, i.RoleId }).ToTable("ApplicationUserRoles");
+            builder.Entity<IdentityUserLogin>().HasKey(i => i.UserId).ToTable("ApplicationUserLogins");
+            builder.Entity<IdentityRole>().ToTable("ApplicationRoles");
+            builder.Entity<IdentityUserClaim>().HasKey(i => i.UserId).ToTable("ApplicationUserClaims");
         }
     }
 }
